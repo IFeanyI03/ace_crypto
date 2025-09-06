@@ -4,7 +4,7 @@ import logo from '../assets/logo.png';
 
 const Header = () => {
     return (
-        <header className="fixed bg-white z-50 h-[163px] w-full py-7 px-[95px]">
+        <header className="fixed bg-white z-50 h-[163px] w-full py-7 px-[121px]">
             <div className="w-full h-full flex justify-between items-center">
                 <Link to="/" className='w-fit h-full'>
                     <img src={logo} alt="Ace Digital World Logo" className="h-full object-contain" />

@@ -1,11 +1,14 @@
 import React from 'react';
-import { Mobile, Globe, Comment } from '../assets/Icons';
+// import { Mobile, Globe, Comment } from '../assets/Icons';
+import Comment from '../assets/comment-alt.svg'
+import Mobile from '../assets/mobile-alt.svg'
+import Globe from '../assets/globe.svg'
 
 // You can use an icon library like 'react-icons' for the svgs
 const ServiceCard = ({ title, description, icon }) => (
-  <div className="bg-white py-[35px] px-4 rounded-lg shadow-md flex flex-col gap-2.5 h-[370px] w-[338px] text-left">
-    <img src={icon} />
-    <h3 className="text-xl font-bold h-[72px]">{title}</h3>
+  <div className="bg-white py-[35px] px-4 pr-8 rounded-lg shadow-md flex flex-col gap-2.5 h-[370px] w-[338px] text-left">
+    <img className='w-10 h-10 object-contain' src={icon}/>
+    <h3 className="text-[24px] font-bold w-[181px] h-[72px]">{title}</h3>
     <p className="text-gray-600">{description}</p>
   </div>
 );
@@ -30,7 +33,7 @@ const Services = () => {
   ];
 
   return (
-    <section className="h-[827px] px-[121px]">
+    <section className="relative h-fit pb-20 px-[121px]">
       <div className="flex flex-col gap-4 text-center">
         <h2 className="text-[32px] font-bold">Web Development</h2>
         <p className="font-medium">Bringing IT solutions for your Business</p>

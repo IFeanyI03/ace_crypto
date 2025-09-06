@@ -26,7 +26,7 @@ const HomePage = () => {
                 <button className='h-full w-[192px] bg-[#000B9F] p-2.5 rounded-[8px] text-white'>Get Started</button>
               </div>
             </div>
-            <div className="md:w-1/2 flex items-ceter justify-center">
+            <div className="md:w-1/2 flex items-ceter justify-end">
               <img className='w-[328px] h-[328px] object-contain' src={image} />
             </div>
           </div>

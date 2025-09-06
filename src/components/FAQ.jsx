@@ -4,10 +4,10 @@ const FaqItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 w-[504px]">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-primary text-white p-4 rounded-lg flex justify-between items-center text-left"
+        className="w-full bg-[#555ED4] text-white p-4 rounded-lg flex justify-between items-center text-left"
       >
         <span className="font-semibold">{question}</span>
         <span>{isOpen ? '-' : '+'}</span>
@@ -29,11 +29,12 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="">
-      <div className="container mx-auto px-6">
+    <section className="px-[121px] py-10">
+      <div className="w-full flex justify-between">
         <div className="text-left max-w-lg">
-           <h2 className="text-3xl font-bold mb-2">Frequently Asked Questions</h2>
-           <p className="text-gray-600 mb-8">Didn't See The Right Answer? <a href="#" className="text-primary font-semibold">Contact Us</a></p>
+           <h2 className="text-[48px] font-bold w-[445px]">Frequently Asked Questions</h2>
+           <p className="text-gray-600">Didn't See The Right Answer? </p>
+           <a href="#" className="text-primary text-[#000B9F] font-semibold">Contact Us</a>
         </div>
         <div>
           {faqs.map((faq, index) => (
