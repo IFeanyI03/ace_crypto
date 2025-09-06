@@ -3,8 +3,8 @@ import illustration from '../assets/auth-illustration.png'; // Add the illustrat
 
 const AuthLayout = ({ children }) => {
   return (
-    <div className="auth-container">
-      <div className="auth-form-section">
+    <div className="auth-container flex justify-center px-20 h-screen gap-16 items-center">
+      <div className="auth-form-section w-fit">
         {children}
       </div>
       <div className="auth-illustration-section">

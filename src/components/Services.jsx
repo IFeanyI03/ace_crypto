@@ -37,7 +37,7 @@ const Services = () => {
       <div className="flex flex-col gap-4 text-center">
         <h2 className="text-[32px] font-bold">Web Development</h2>
         <p className="font-medium">Bringing IT solutions for your Business</p>
-        <div className="flex gap-21">
+        <div className="flex justify-between">
           {services.map(service => (
             <ServiceCard key={service.title} title={service.title} description={service.description} icon={service.icon} />
           ))}
