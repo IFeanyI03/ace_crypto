@@ -6,6 +6,9 @@ import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 import HomePage from '../components/HomePage';
 import { useState } from 'react';
+import BuyCryptoHero from '../components/BuyCryptoHero';
+import Blank from '../components/Blank';
+
 
 const LandingPage = () => {
 
@@ -15,10 +18,10 @@ const LandingPage = () => {
     switch (activeTab) {
       case 'home':
         return <HomePage />;
-      case 'buycrypto':
-        return <HomePage />;
+      case 'buy-crypto':
+        return <BuyCryptoHero />;
       default:
-        return <HomePage />;
+        return <Blank />;
     }
   }
 

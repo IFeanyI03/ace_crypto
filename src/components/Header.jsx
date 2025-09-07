@@ -19,7 +19,7 @@ const Header = ({ activeTab, setActiveTab }) => {
     return (
         <header className="fixed bg-white z-50 h-[163px] w-full py-7 px-[121px]">
             <div className="w-full h-full flex justify-between items-center">
-                <NavButton tabName="more" className='w-fit h-full'>
+                <NavButton tabName="home" className='w-fit h-full'>
                     <img src={logo} alt="Ace Digital World Logo" className="h-full object-contain" />
                 </NavButton>
                 <nav className="flex gap-6 font-semibold text-[#121212]">
