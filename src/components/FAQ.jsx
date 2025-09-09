@@ -4,17 +4,17 @@ const FaqItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mb-4 w-[504px]">
+    <div className="mb-4 w-full md:w-[504px]">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full bg-[#555ED4] text-white p-4 rounded-lg flex justify-between items-center text-left"
       >
-        <span className="font-semibold">{question}</span>
-        <span>{isOpen ? '-' : '+'}</span>
+        <span className="font-semibold text-sm sm:text-base">{question}</span>
+        <span className="text-xl">{isOpen ? '-' : '+'}</span>
       </button>
       {isOpen && (
         <div className="p-4 mt-2 bg-white rounded-lg shadow-inner">
-          <p>{answer}</p>
+          <p className="text-sm sm:text-base">{answer}</p>
         </div>
       )}
     </div>
@@ -29,14 +29,14 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="px-[121px] py-10">
-      <div className="w-full flex justify-between">
-        <div className="text-left max-w-lg">
-           <h2 className="text-[48px] font-bold w-[445px]">Frequently Asked Questions</h2>
+    <section className="px-4 sm:px-8 md:px-[121px] py-10">
+      <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-start">
+        <div className="text-center md:text-left max-w-lg mb-8 md:mb-0">
+           <h2 className="text-3xl sm:text-4xl md:text-[48px] font-bold w-full md:w-[445px] mb-4">Frequently Asked Questions</h2>
            <p className="text-gray-600">Didn't See The Right Answer? </p>
            <a href="#" className="text-primary text-[#000B9F] font-semibold">Contact Us</a>
         </div>
-        <div>
+        <div className="w-full md:w-auto">
           {faqs.map((faq, index) => (
             <FaqItem key={index} question={faq.question} answer={faq.answer} />
           ))}

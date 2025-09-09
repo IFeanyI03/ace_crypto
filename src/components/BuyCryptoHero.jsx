@@ -4,13 +4,13 @@ import CryptoForm from './CryptoForm';
 
 const BuyCryptoHero = () => {
     return (
-        <div className='relative pt-[151px] flex flex-col gap-[66px] px-[121px]'>
+        <div className='relative pt-24 md:pt-[151px] flex flex-col gap-8 md:gap-[66px] px-4 sm:px-8 md:px-[121px]'>
             
             <section className="">
-                <div className="flex flex-col md:flex-row items-center gap-12">
+                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     {/* Left Side Content */}
-                    <div className="md:w-1/2 flex flex-col gap-4">
-                        <h1 className="text-[48px] w-[419px] font-bold">
+                    <div className="md:w-1/2 flex flex-col gap-4 text-center md:text-left">
+                        <h1 className="text-3xl md:text-[48px] w-full md:w-[419px] font-bold">
                             Buy Crypto In A Few Easy Steps
                         </h1>
                         <p className="text-gray-600 text-lg">
@@ -18,17 +18,17 @@ const BuyCryptoHero = () => {
                         </p>
                     </div>
                     {/* Right Side Form */}
-                    <div className="md:w-1/2">
+                    <div className="w-full md:w-1/2">
                         <CryptoForm />
                     </div>
                 </div>
             </section>
 
             <section className="bg-white">
-                <div className="flex flex-col md:flex-row items-center gap-12">
+                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     {/* Left Side Content */}
                     <div className="md:w-1/2 flex flex-col gap-6 text-center md:text-left">
-                        <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+                        <h1 className="text-3xl md:text-5xl font-bold leading-tight">
                             Buy & Sell Crypto With <span className='text-[#000B9F]'>Ace Digital</span>
                         </h1>
                         <p className="text-gray-600 text-lg">
@@ -40,18 +40,18 @@ const BuyCryptoHero = () => {
                             You Can Also Use A Wide Range Of Accepted Stablecoins To Buy Crypto.
                         </p>
                         <div className="mt-4">
-                            <button className="px-12 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-blue-700">
+                            <button className="px-8 py-3 md:px-12 md:py-4 bg-primary text-white rounded-lg font-semibold hover:bg-blue-700">
                                 Create Account
                             </button>
                         </div>
                     </div>
 
                     {/* Right Side Illustration */}
-                    <div className="md:w-1/2 flex items-center justify-center">
+                    <div className="md:w-1/2 flex items-center justify-center mt-8 md:mt-0">
                         <img
                             src={cryptoIllustration}
                             alt="Crypto trading illustration"
-                            className="w-full max-w-lg h-auto object-contain"
+                            className="w-full max-w-md md:max-w-lg h-auto object-contain"
                         />
                     </div>
                 </div>

@@ -5,10 +5,10 @@ import google from '../assets/google-icon.png';
 
 const SignInForm = () => {
   return (
-    <div className="w-full max-w-md">
-      <img src={logo} alt="Ace Digital World" className="h-[163px] w-[163px]" />
-      <h2 className="text-3xl font-bold mb-6">Sign in</h2>
-      <form className='w-[358px] flex flex-col gap-4'>
+    <div className="w-full max-w-md mx-auto">
+      <img src={logo} alt="Ace Digital World" className="h-32 w-32 sm:h-40 sm:w-40 mx-auto" />
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">Sign in</h2>
+      <form className='w-full flex flex-col gap-4'>
         <div className="w-full flex flex-col gap-1">
           <label htmlFor="text">Email</label>
           <input type="text" placeholder="Email or phone number" required className="w-full p-3 border border-gray-300 rounded-md"/>
