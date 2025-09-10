@@ -20,7 +20,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     <div className="md:w-1/2 flex items-center justify-center md:justify-end mt-8 md:mt-0">
-                        <img className='w-48 h-48 sm:w-64 sm:h-64 md:w-[328px] md:h-[328px] object-contain' src={image} />
+                        <img className='w-full h-full  md:w-[328px] md:h-[328px] object-contain' src={image} />
                     </div>
                 </div>
             </section>
