@@ -4,7 +4,7 @@ import CryptoForm from './CryptoForm';
 
 const BuyCryptoHero = () => {
     return (
-        <div className='relative pt-24 md:pt-[151px] flex flex-col gap-8 md:gap-[66px] px-4 sm:px-8 md:px-[121px]'>
+        <div className='relative pt-4 flex flex-col gap-8 md:gap-[66px] px-4 sm:px-8 md:px-[121px]'>
             
             <section className="">
                 <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
