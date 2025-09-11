@@ -30,8 +30,8 @@ const Header = ({ activeTab, setActiveTab }) => {
                     <NavButton tabName="buy-crypto">Buy Crypto</NavButton>
                     <NavButton tabName="trade">Trade</NavButton>
                     <NavButton tabName="more">More</NavButton>
-                    <NavButton tabName="contact us">Contact us</NavButton>
-                    <NavButton tabName="about-us">About Us</NavButton>
+                    <NavButton tabName="contact">Contact us</NavButton>
+                    <NavButton tabName="about">About Us</NavButton>
                     <NavButton tabName="web-development">Web Development</NavButton>
                 </nav>
                 <div className="hidden md:flex gap-2">
