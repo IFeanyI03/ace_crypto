@@ -1,5 +1,6 @@
 import image from '../assets/cryptoList.png'
 import Services from '../components/Services';
+import CryptoList from './CryptoList';
 
 const HomePage = () => {
     return (
@@ -19,8 +20,9 @@ const HomePage = () => {
                             <button className='h-full w-full sm:w-[192px] bg-[#000B9F] p-2.5 rounded-[8px] text-white'>Get Started</button>
                         </div>
                     </div>
-                    <div className="md:w-1/2 flex items-center justify-center md:justify-end mt-8 md:mt-0">
-                        <img className='w-full h-full  md:w-[328px] md:h-[328px] object-contain' src={image} />
+                    <div className="md:w-1/2 w-full flex items-center px-4 justify-center md:justify-end mt-8 md:mt-0">
+                        <CryptoList/>
+                        {/* <img className='w-full h-full  md:w-[328px] md:h-[328px] object-contain' src={image} /> */}
                     </div>
                 </div>
             </section>
