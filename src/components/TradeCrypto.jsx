@@ -5,7 +5,7 @@ import { BitcoinIcon, EthereumIcon, UsdtIcon } from '../assets/TradeIcons';
 const CryptoTab = ({ icon, label, isActive, onClick }) => (
     <button
         onClick={onClick}
-        className={`flex items-center gap-2 px-2 py-2 sm:text-[12px] md:px-4 md:py-2 rounded-lg font-semibold transition-colors ${
+        className={`flex items-center gap-2 px-2 py-2 text-[12px] md:text-[16px] md:px-4 md:py-2 rounded-lg font-semibold transition-colors ${
             isActive ? 'bg-[#000B9F] text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
         }`}
     >
