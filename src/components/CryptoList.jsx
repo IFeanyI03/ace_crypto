@@ -99,7 +99,7 @@ const CryptoList = () => {
                         icon={getIcon(crypto.symbol)}
                         ticker={crypto.symbol}
                         name={crypto.name}
-                        price={crypto.price_usd}
+                        price={crypto.price_usd * 1533}
                         change={crypto.percent_change_24h}
                     />
                 ))
