@@ -36,7 +36,7 @@ const TradeGiftCard = () => {
                 <FilterButton icon={<UnlistedCardsIcon />} label="Unlisted Cards" />
             </div>
 
-            <div className="bg-white rounded-lg shadow-md overflow-x-auto">
+            <div className="bg-white rounded-lg overflow-x-auto">
                 <table className="w-full min-w-max text-left">
                     <thead>
                         <tr className="border-b bg-gray-50">

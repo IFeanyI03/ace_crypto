@@ -49,8 +49,8 @@ const Header = ({ activeTab, setActiveTab }) => {
                     <NavButton tabName="buy-crypto">Buy Crypto</NavButton>
                     <NavButton tabName="trade">Trade</NavButton>
                     <NavButton tabName="more">More</NavButton>
-                    <NavButton tabName="contact us">Contact us</NavButton>
-                    <NavButton tabName="about-us">About Us</NavButton>
+                    <NavButton tabName="contact">Contact us</NavButton>
+                    <NavButton tabName="about">About Us</NavButton>
                     <NavButton tabName="web-development">Web Development</NavButton>
                     <div className="flex flex-col gap-2 w-full px-4">
                         <Link to="/signin" className="w-full text-center px-6 py-2 rounded-[30px] text-[#000DBF] border-[#14B6E4] border-[1px]">Sign In</Link>
