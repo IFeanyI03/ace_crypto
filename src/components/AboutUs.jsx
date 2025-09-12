@@ -1,13 +1,16 @@
 // src/components/AboutUs.jsx
 import React from 'react';
 import { RocketIcon, LightbulbIcon, RotateIcon } from '../assets/AboutIcons';
+import image1 from '../assets/Group (1).png'
+import image from '../assets/Group.png'
+import image2 from '../assets/Group (2).png'
 
 const InfoCard = ({ icon, title, text }) => (
-    <div className="bg-white p-8 rounded-lg shadow-lg flex flex-col items-center text-center w-full sm:w-80 h-auto sm:h-96">
-        <div className="w-16 h-16 mb-4">
+    <div className="bg-white p-8 rounded-lg shadow-lg flex flex-col items-center text-center gap-8 w-full sm:w-80 h-auto sm:h-96">
+        <div className="w-16 h-16 flex justify-center items-center">
             {icon}
         </div>
-        <h3 className="text-2xl font-bold mb-2">{title}</h3>
+        <h3 className="text-2xl font-bold">{title}</h3>
         <p className="text-gray-600">{text}</p>
     </div>
 );
@@ -25,9 +28,9 @@ const AboutUs = () => {
                 </p>
             </div>
             <div className="flex flex-col md:flex-row justify-center items-center gap-8">
-                <InfoCard icon={<RocketIcon />} title="Lorem Ipsum is simply" text={cardText} />
-                <InfoCard icon={<LightbulbIcon />} title="Lorem Ipsum is simply" text={cardText} />
-                <InfoCard icon={<RotateIcon />} title="Lorem Ipsum is simply" text={cardText} />
+                <InfoCard icon={<img src={image} />} title="Lorem Ipsum is simply" text={cardText} />
+                <InfoCard icon={<img src={image1} />} title="Lorem Ipsum is simply" text={cardText} />
+                <InfoCard icon={<img src={image2} />} title="Lorem Ipsum is simply" text={cardText} />
             </div>
         </section>
     );
