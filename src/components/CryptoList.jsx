@@ -20,13 +20,13 @@ const CryptoListItem = ({ icon, ticker, change, cryptoCurrency, price }) => {
             <div className="flex items-center gap-3">
                 <img src={icon} alt={`${ticker} icon`} className="w-8 h-8" />
                 <div className='flex flex-col gap-1'>
-                    <span className="font-semibold">{ticker}/NGN</span>
+                    <p className="font-semibold">{ticker}<span className='text-gray-700 font-medium'>/NGN</span></p>
                     <span className="font-semibold">{cryptoCurrency}</span>
                 </div>
             </div>
 
             <div className='flex flex-col gap-1 items-end'>
-                <span className="font-semibold">{ticker}NGN {price}</span>
+                <span className="font-semibold">NGN {price}</span>
                 <div className={`font-semibold ${colorClass}`}>
                     {isPositive ? '▲' : '▼'} {Math.abs(change).toFixed(2)}%
                 </div>
