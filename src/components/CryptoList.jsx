@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Import your crypto icons
 import BtcIcon from '../assets/BTC.png';
 import EthIcon from '../assets/ETH.png';
+import SolIcon from '../assets/solana-sol-logo.png';
+import UsdtIcon from '../assets/tether-usdt-logo.png';
+import DogeIcon from '../assets/dogecoin-doge-logo.png';
+import BnbIcon from '../assets/bnb-bnb-logo.png';
+import TrxIcon from '../assets/tron-trx-logo.png';
+import UsdcIcon from '../assets/usd-coin-usdc-logo.png';
+import XrpIcon from '../assets/xrp-xrp-logo.png';
 
-// Placeholder icons for others, you can replace these with actual image imports
-const PlaceholderIcon = ({ ticker }) => (
-    <div className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-white font-bold">
-        {ticker.charAt(0)}
-    </div>
-);
-
-const CryptoListItem = ({ icon, ticker, change, cryptoCurrency, price }) => {
-    const isPositive = change > 0;
+const CryptoListItem = ({ icon, ticker, name, price, change }) => {
+    const isPositive = parseFloat(change) > 0;
     const colorClass = isPositive ? 'text-green-500' : 'text-red-500';
 
     return (
@@ -21,12 +21,12 @@ const CryptoListItem = ({ icon, ticker, change, cryptoCurrency, price }) => {
                 <img src={icon} alt={`${ticker} icon`} className="w-8 h-8" />
                 <div className='flex flex-col gap-1'>
                     <p className="font-semibold">{ticker}<span className='text-gray-700 font-medium'>/NGN</span></p>
-                    <span className="font-semibold">{cryptoCurrency}</span>
+                    <span className="font-semibold text-gray-500">{name}</span>
                 </div>
             </div>
 
             <div className='flex flex-col gap-1 items-end'>
-                <span className="font-semibold">NGN {price}</span>
+                <span className="font-semibold">NGN {parseFloat(price).toLocaleString()}</span>
                 <div className={`font-semibold ${colorClass}`}>
                     {isPositive ? '▲' : '▼'} {Math.abs(change).toFixed(2)}%
                 </div>
@@ -35,41 +35,75 @@ const CryptoListItem = ({ icon, ticker, change, cryptoCurrency, price }) => {
     );
 };
 
+const LoadingSpinner = () => (
+    <div className="flex justify-center items-center p-8">
+        <svg className="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+    </div>
+);
+
 const CryptoList = () => {
-    // You can easily edit this data
-    const cryptoData = [
-        { icon: BtcIcon, ticker: 'BTC', change: 12.34, currency: 'Bitcoin', price: 300.00 },
-        { icon: EthIcon, ticker: 'ETH', change: -5.34, currency: 'Bitcoin', price: 300.00 },
-        // Add other cryptocurrencies here. Using placeholders for now.
-        // To add more, find/create an icon, import it, and add a new entry below.
-        { icon: 'TRX_ICON_PATH', ticker: 'TRX', change: 12.34, currency: 'Bitcoin', price: 300.00 },
-        { icon: 'USDT_ICON_PATH', ticker: 'USDT', change: -5.34, currency: 'Bitcoin', price: 300.00 },
-        { icon: 'XRP_ICON_PATH', ticker: 'XRP', change: 12.34, currency: 'Bitcoin', price: 300.00 },
-    ];
+    const [cryptoData, setCryptoData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    // A simple function to render either the real icon or a placeholder
-    const getIcon = (item) => {
-        if (item.ticker === 'BTC') return BtcIcon;
-        if (item.ticker === 'ETH') return EthIcon;
-        // Add more specific icons here
-        // return <PlaceholderIcon ticker={item.ticker} />;
-        // For now, let's just use the BTC icon as a fallback placeholder
-        return BtcIcon;
+    useEffect(() => {
+        setIsLoading(true);
+        fetch('https://api.coinlore.net/api/tickers/?start=0&limit=10')
+            .then(response => response.json())
+            .then(data => {
+                setCryptoData(data.data);
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching crypto data:', error);
+                setIsLoading(false);
+            });
+    }, []);
+
+    const getIcon = (symbol) => {
+        switch (symbol) {
+            case 'BTC':
+                return BtcIcon;
+            case 'ETH':
+                return EthIcon;
+            case 'USDT':
+                return UsdtIcon;
+            case 'BNB':
+                return BnbIcon;
+            case 'SOL':
+                return SolIcon;
+            case 'XRP':
+                return XrpIcon;
+            case 'USDC':
+                return UsdcIcon;
+            case 'DOGE':
+                return DogeIcon;
+            case 'TRX':
+                return TrxIcon;
+            default:
+                // A fallback icon if the symbol doesn't match
+                return BtcIcon;
+        }
     };
-
 
     return (
         <div className="w-full max-w-sm py-4 rounded-xl space-y-3">
-            {cryptoData.map((crypto) => (
-                <CryptoListItem
-                    key={crypto.ticker}
-                    icon={getIcon(crypto)}
-                    ticker={crypto.ticker}
-                    change={crypto.change}
-                    cryptoCurrency={crypto.currency}
-                    price={crypto.price}
-                />
-            ))}
+            {isLoading ? (
+                <LoadingSpinner />
+            ) : (
+                cryptoData.map((crypto) => (
+                    <CryptoListItem
+                        key={crypto.id}
+                        icon={getIcon(crypto.symbol)}
+                        ticker={crypto.symbol}
+                        name={crypto.name}
+                        price={crypto.price_usd}
+                        change={crypto.percent_change_24h}
+                    />
+                ))
+            )}
         </div>
     );
 };
