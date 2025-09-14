@@ -1,6 +1,10 @@
 // src/components/TradeGiftCard.jsx
 import React from 'react';
 import { ItunesIcon, GoldRazerIcon, SteamIcon, MoreGiftcardsIcon, UnlistedCardsIcon } from '../assets/TradeIcons';
+import itunes from '../assets/itunes.png'
+import razer from '../assets/razer.png'
+import steam from '../assets/steam.png'
+
 
 const giftCardData = [
     { country: 'Australia', rate: 453, min: 100, max: 450, variant: 'online' },
@@ -29,11 +33,11 @@ const TradeGiftCard = () => {
     return (
         <div>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
-                <FilterButton icon={<ItunesIcon />} label="iTunes" />
-                <FilterButton icon={<GoldRazerIcon />} label="Gold Razer" />
-                <FilterButton icon={<SteamIcon />} label="Steam" />
-                <FilterButton icon={<MoreGiftcardsIcon />} label="More Giftcards" />
-                <FilterButton icon={<UnlistedCardsIcon />} label="Unlisted Cards" />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes}/>} label="iTunes" />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={razer}/>} label="Gold Razer" />
+                <FilterButton icon={<img className='w-6 h-6 object-contain'src={steam}/>} label="Steam" />
+                <FilterButton icon={<img className='w-6 h-6 object-contain'src={razer}/>} label="More Giftcards" />
+                <FilterButton icon={<img className='w-6 h-6 object-contain'src={razer}/>} label="Unlisted Cards" />
             </div>
 
             <div className="bg-white rounded-lg overflow-x-auto">

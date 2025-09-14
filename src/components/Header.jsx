@@ -32,7 +32,7 @@ const Header = ({ activeTab, setActiveTab }) => {
                     <NavButton tabName="more">More</NavButton>
                     <NavButton tabName="contact">Contact us</NavButton>
                     <NavButton tabName="about">About Us</NavButton>
-                    <NavButton tabName="web-development">Web Development</NavButton>
+                    <NavButton tabName="web-dev">Web Development</NavButton>
                 </nav>
                 <div className="hidden md:flex gap-2">
                     <Link to="/signin" className="px-6 py-2 rounded-[30px] text-[#000DBF] border-[#14B6E4] border-[1px]">Sign In</Link>
@@ -51,7 +51,7 @@ const Header = ({ activeTab, setActiveTab }) => {
                     <NavButton tabName="more">More</NavButton>
                     <NavButton tabName="contact">Contact us</NavButton>
                     <NavButton tabName="about">About Us</NavButton>
-                    <NavButton tabName="web-development">Web Development</NavButton>
+                    <NavButton tabName="web-dev">Web Development</NavButton>
                     <div className="flex flex-col gap-2 w-full px-4">
                         <Link to="/signin" className="w-full text-center px-6 py-2 rounded-[30px] text-[#000DBF] border-[#14B6E4] border-[1px]">Sign In</Link>
                         <Link to="/signup" className="w-full text-center px-6 py-2 rounded-[30px] bg-[#14B6E4] text-white">Sign Up</Link>

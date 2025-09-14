@@ -11,6 +11,7 @@ import ContactUs from '../components/ContactUs';
 import AboutUs from '../components/AboutUs';
 import Blank from '../components/Blank';
 import Trade from '../components/Trade';
+import WebDev from '../components/WebDve';
 
 
 const LandingPage = () => {
@@ -29,6 +30,8 @@ const LandingPage = () => {
         return <AboutUs />;
       case 'trade':
         return <Trade />;
+      case 'web-dev':
+        return <WebDev />;
       default:
         return <Blank />;
     }
