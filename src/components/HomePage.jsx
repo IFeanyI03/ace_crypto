@@ -5,9 +5,9 @@ import CryptoList from './CryptoList';
 const HomePage = () => {
     return (
         <>
-            <section className="relative z-0 mx-auto px-4 sm:px-8 md:px-[121px] py-8">
-                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                    <div className="md:w-1/2 flex flex-col gap-4 text-center md:text-left">
+            <section className="relative z-0 mx-auto px-4 sm:px-8 md:px-[121px] pt-8 pb-16">
+                <div className="flex flex-col md:flex-row items-center md:items-start md:relative gap-8 md:gap-12">
+                    <div className="md:w-1/2 md:sticky md:top-40 flex flex-col gap-4 text-center md:text-left">
                         <h1 className="text-3xl sm:text-4xl md:text-[48px] w-full md:w-[433px] font-bold leading-tight">
                             Chose <span className='text-[#000B9F]'>Ace DIgital </span>World Today
                         </h1>
