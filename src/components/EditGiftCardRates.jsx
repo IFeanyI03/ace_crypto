@@ -69,7 +69,7 @@ const EditGiftCardRates = () => {
                     <h3 className="text-xl font-semibold mb-4 text-gray-700">Add New Gift Card Type</h3>
                     <form onSubmit={handleAddType} className="w-full flex items-center gap-4">
                         <input name="newType" type="text" placeholder="e.g., Amazon" required className="w-2/3 p-3 border rounded-md focus:ring-2 focus:ring-blue-500 flex-grow" />
-                        <button type="submit" className="bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Add Type</button>
+                        <button type="submit" className="bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Add Rate</button>
                     </form>
                 </div>
                 
@@ -109,9 +109,9 @@ const RateEditor = ({ rateData, onDelete, onUpdate }) => {
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <div className="flex justify-between items-center mb-4">
-                <input className="text-2xl font-bold text-gray-800 w-fit p-2 border rounded-md" value={typeName} onChange={(e) => setTypeName(e.target.value)} />
-                <button onClick={() => onDelete(rateData.id)} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete Type</button>
+            <div className="flex w-full justify-between items-center mb-4">
+                <input className="text-2xl font-bold text-gray-800 w-fit p-2 border rounded-md w-2/3" value={typeName} onChange={(e) => setTypeName(e.target.value)} />
+                <button onClick={() => onDelete(rateData.id)} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete Rate</button>
             </div>
             
             <div className="space-y-4">
