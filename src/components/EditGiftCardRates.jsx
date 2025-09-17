@@ -1,17 +1,15 @@
-
+// src/components/EditGiftCardRates.jsx
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 
 const EditGiftCardRates = () => {
     const [ratesData, setRatesData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [editingId, setEditingId] = useState(null);
-    const [formData, setFormData] = useState({});
 
     // Fetches all rates from the database
     const fetchRates = async () => {
         setLoading(true);
-        const { data, error } = await supabase.from('rates').select('*');
+        const { data, error } = await supabase.from('rates').select('*').order('id');
         if (error) {
             console.error('Error fetching rates:', error);
         } else {
@@ -23,123 +21,116 @@ const EditGiftCardRates = () => {
     useEffect(() => {
         fetchRates();
     }, []);
-
-    // Handles input changes for the edit form
-    const handleInputChange = (e, field) => {
-        setFormData({ ...formData, [field]: e.target.value });
-    };
-
-    // Starts the editing mode for a specific rate
-    const handleEdit = (rate) => {
-        setEditingId(rate.id);
-        setFormData(rate);
-    };
-
-    // Saves the updated rate to the database
-    const handleUpdate = async (id) => {
-        const { rate, type } = formData;
+    
+    // Generic update function
+    const updateRate = async (id, type, rate) => {
         const { error } = await supabase
             .from('rates')
-            .update({ rate, type })
+            .update({ type, rate })
             .eq('id', id);
 
         if (error) {
             console.error('Error updating rate:', error);
+            alert('Error updating rate.');
         } else {
-            setEditingId(null);
-            fetchRates(); // Refresh data
+            fetchRates();
         }
     };
 
-    // Deletes a rate from the database
-    const handleDelete = async (id) => {
-        const { error } = await supabase
-            .from('rates')
-            .delete()
-            .eq('id', id);
-
-        if (error) {
-            console.error('Error deleting rate:', error);
-        } else {
-            fetchRates(); // Refresh data
+    // Deletes a whole gift card type
+    const handleDeleteType = async (id) => {
+        if (window.confirm("Are you sure you want to delete this entire gift card type?")) {
+            const { error } = await supabase.from('rates').delete().eq('id', id);
+            if (error) console.error('Error deleting rate:', error);
+            else fetchRates();
         }
     };
-    
-    // Adds a new gift card rate
-    const handleAdd = async (e) => {
+
+    // Adds a new gift card type
+    const handleAddType = async (e) => {
         e.preventDefault();
-        const { newType, newRate } = e.target.elements;
-        
-        try {
-            // Ensure the rate is valid JSON
-            const parsedRate = JSON.parse(newRate.value);
-            const { error } = await supabase
-                .from('rates')
-                .insert([{ type: newType.value, rate: parsedRate }]);
-            
-            if (error) throw error;
-            
-            fetchRates(); // Refresh data
-            e.target.reset(); // Clear form
-        } catch (err) {
-            console.error('Error adding new rate:', err);
-            alert("Failed to add rate. Make sure the rate data is in valid JSON format.");
+        const { newType } = e.target.elements;
+        const { error } = await supabase.from('rates').insert([{ type: newType.value, rate: [] }]);
+        if (error) console.error('Error adding new rate:', error);
+        else {
+            fetchRates();
+            e.target.reset();
         }
     };
-
 
     if (loading) return <p>Loading editor...</p>;
 
     return (
-        <div className="p-8">
-            <h2 className="text-2xl font-bold mb-6">Edit Gift Card Rates</h2>
+        <div className="p-4 sm:p-8 bg-gray-50 min-h-screen">
+            <div className="max-w-7xl mx-auto">
+                <h2 className="text-3xl font-bold mb-6 text-gray-800">Edit Gift Card Rates</h2>
 
-            {/* Form to Add New Rate */}
-            <div className="mb-8 p-4 border rounded-lg">
-                <h3 className="text-xl font-semibold mb-4">Add New Gift Card</h3>
-                <form onSubmit={handleAdd} className="flex flex-col gap-4">
-                    <input name="newType" type="text" placeholder="Gift Card Type (e.g., Amazon)" required className="p-2 border rounded" />
-                    <textarea name="newRate" placeholder='Rate Data (in JSON format)' required className="p-2 border rounded h-32"></textarea>
-                    <button type="submit" className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Add Rate</button>
-                </form>
+                <div className="mb-8 p-6 bg-white border rounded-lg shadow-sm">
+                    <h3 className="text-xl font-semibold mb-4 text-gray-700">Add New Gift Card Type</h3>
+                    <form onSubmit={handleAddType} className="flex items-center gap-4">
+                        <input name="newType" type="text" placeholder="e.g., Amazon" required className="p-3 border rounded-md focus:ring-2 focus:ring-blue-500 flex-grow" />
+                        <button type="submit" className="bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Add Type</button>
+                    </form>
+                </div>
+                
+                <div className="space-y-6">
+                    {ratesData.map(rate => (
+                        <RateEditor key={rate.id} rateData={rate} onDelete={handleDeleteType} onUpdate={updateRate} />
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Sub-component to manage a single gift card type and its rates
+const RateEditor = ({ rateData, onDelete, onUpdate }) => {
+    const [localRates, setLocalRates] = useState(rateData.rate);
+    const [typeName, setTypeName] = useState(rateData.type);
+
+    const handleRateChange = (index, field, value) => {
+        const updatedRates = [...localRates];
+        updatedRates[index][field] = value;
+        setLocalRates(updatedRates);
+    };
+
+    const addRateField = () => {
+        setLocalRates([...localRates, { country: 'USA', rate: 0, min: 0, max: 0, variant: 'Physical', naira: 0 }]);
+    };
+    
+    const removeRateField = (index) => {
+        const updatedRates = localRates.filter((_, i) => i !== index);
+        setLocalRates(updatedRates);
+    };
+    
+    const handleSave = () => {
+        onUpdate(rateData.id, typeName, localRates);
+    };
+
+    return (
+        <div className="bg-white p-6 rounded-lg shadow-sm border">
+            <div className="flex justify-between items-center mb-4">
+                <input className="text-2xl font-bold text-gray-800 p-2 border rounded-md" value={typeName} onChange={(e) => setTypeName(e.target.value)} />
+                <button onClick={() => onDelete(rateData.id)} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete Type</button>
+            </div>
+            
+            <div className="space-y-4">
+                {localRates.map((rate, index) => (
+                    <div key={index} className="grid grid-cols-2 md:grid-cols-7 gap-3 p-3 border rounded-md bg-gray-50">
+                        <input value={rate.country} onChange={e => handleRateChange(index, 'country', e.target.value)} placeholder="Country" className="p-2 border rounded-md" />
+                        <input value={rate.rate} onChange={e => handleRateChange(index, 'rate', Number(e.target.value))} placeholder="Rate" type="number" className="p-2 border rounded-md" />
+                        <input value={rate.min} onChange={e => handleRateChange(index, 'min', Number(e.target.value))} placeholder="Min" type="number" className="p-2 border rounded-md" />
+                        <input value={rate.max} onChange={e => handleRateChange(index, 'max', Number(e.target.value))} placeholder="Max" type="number" className="p-2 border rounded-md" />
+                        <input value={rate.naira} onChange={e => handleRateChange(index, 'naira', Number(e.target.value))} placeholder="Naira" type="number" className="p-2 border rounded-md" />
+                        <input value={rate.variant} onChange={e => handleRateChange(index, 'variant', e.target.value)} placeholder="Variant" className="p-2 border rounded-md" />
+                        <button onClick={() => removeRateField(index)} className="bg-red-500 text-white p-2 rounded-md hover:bg-red-600">Remove</button>
+                    </div>
+                ))}
             </div>
 
-            {/* Table of Existing Rates */}
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white">
-                    <thead>
-                        <tr>
-                            <th className="p-4 text-left">Type</th>
-                            <th className="p-4 text-left">Rate Data (JSON)</th>
-                            <th className="p-4 text-left">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {ratesData.map((rate) => (
-                            <tr key={rate.id} className="border-b">
-                                {editingId === rate.id ? (
-                                    <>
-                                        <td className="p-2"><input type="text" value={formData.type} onChange={(e) => handleInputChange(e, 'type')} className="p-2 border rounded w-full" /></td>
-                                        <td className="p-2"><textarea value={JSON.stringify(formData.rate, null, 2)} onChange={(e) => setFormData({...formData, rate: JSON.parse(e.target.value)})} className="p-2 border rounded w-full h-40"></textarea></td>
-                                        <td className="p-2">
-                                            <button onClick={() => handleUpdate(rate.id)} className="bg-green-500 text-white px-3 py-1 rounded mr-2">Save</button>
-                                            <button onClick={() => setEditingId(null)} className="bg-gray-500 text-white px-3 py-1 rounded">Cancel</button>
-                                        </td>
-                                    </>
-                                ) : (
-                                    <>
-                                        <td className="p-4 font-semibold">{rate.type}</td>
-                                        <td className="p-4"><pre className="bg-gray-100 p-2 rounded text-sm max-w-lg overflow-auto">{JSON.stringify(rate.rate, null, 2)}</pre></td>
-                                        <td className="p-4">
-                                            <button onClick={() => handleEdit(rate)} className="bg-yellow-500 text-white px-3 py-1 rounded mr-2">Edit</button>
-                                            <button onClick={() => handleDelete(rate.id)} className="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
-                                        </td>
-                                    </>
-                                )}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <div className="mt-4 flex justify-between">
+                <button onClick={addRateField} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Rate Entry</button>
+                <button onClick={handleSave} className="bg-green-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-green-600">Save Changes</button>
             </div>
         </div>
     );
