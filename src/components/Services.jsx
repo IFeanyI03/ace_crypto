@@ -28,7 +28,7 @@ const Services = () => {
     {
       icon: Mobile,
       title: 'Mobile App Development',
-      description: 'AceTech delivers best-in-class web solutions for your business and retain the attention of the target.'
+      description: 'We build user-friendly, high-performance mobile apps that help your business grow in today’s digital world.'
     }
   ];
 
