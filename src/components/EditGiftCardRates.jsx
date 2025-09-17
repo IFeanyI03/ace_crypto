@@ -109,9 +109,9 @@ const RateEditor = ({ rateData, onDelete, onUpdate }) => {
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <div className="flex w-full justify-between items-center mb-4">
-                <input className="text-2xl font-bold text-gray-800 w-fit p-2 border rounded-md w-2/3" value={typeName} onChange={(e) => setTypeName(e.target.value)} />
-                <button onClick={() => onDelete(rateData.id)} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete Rate</button>
+            <div className="flex w-full justify-between items-center gap-4 mb-4">
+                <input className="text-2xl font-bold text-gray-800 p-2 border rounded-md w-2/3" value={typeName} onChange={(e) => setTypeName(e.target.value)} />
+                <button onClick={() => onDelete(rateData.id)} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete</button>
             </div>
             
             <div className="space-y-4">
