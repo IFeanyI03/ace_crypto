@@ -27,58 +27,13 @@ const TradeGiftCard = () => {
     const [giftCardData, setGiftCardData] = useState({});
     const [loading, setLoading] = useState(true);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     useEffect(() => {
         const fetchRates = async () => {
             setLoading(true);
             let { data: rates, error } = await supabase
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                 .from('rates')
                 .select('*');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             if (error) {
                 console.error('Error fetching rates:', error);
             } else {
@@ -96,21 +51,6 @@ const TradeGiftCard = () => {
 
     const handleFilterClick = (filter) => {
         setActiveFilter(filter);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     };
 
     const activeData = giftCardData[activeFilter] || [];
@@ -118,16 +58,16 @@ const TradeGiftCard = () => {
     return (
         <div>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes}/>} label="iTunes" onClick={handleFilterClick} isActive={activeFilter === 'iTunes'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={razer}/>} label="Razer Gold" onClick={handleFilterClick} isActive={activeFilter === 'Razer Gold'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain'src={steam}/>} label="Steam" onClick={handleFilterClick} isActive={activeFilter === 'Steam'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain'src={itunes}/>} label="Sephora" onClick={handleFilterClick} isActive={activeFilter === 'Sephora'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain'src={itunes}/>} label="Nordstrom" onClick={handleFilterClick} isActive={activeFilter === 'Nordstrom'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain'src={itunes}/>} label="Xbox" onClick={handleFilterClick} isActive={activeFilter === 'Xbox'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain'src={itunes}/>} label="eBay" onClick={handleFilterClick} isActive={activeFilter === 'eBay'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain'src={itunes}/>} label="Macy" onClick={handleFilterClick} isActive={activeFilter === 'Macy'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain'src={itunes}/>} label="Google Play" onClick={handleFilterClick} isActive={activeFilter === 'Google Play'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain'src={itunes}/>} label="Vanilla" onClick={handleFilterClick} isActive={activeFilter === 'Vanilla'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="iTunes" onClick={handleFilterClick} isActive={activeFilter === 'iTunes'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={razer} />} label="Razer Gold" onClick={handleFilterClick} isActive={activeFilter === 'Razer Gold'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={steam} />} label="Steam" onClick={handleFilterClick} isActive={activeFilter === 'Steam'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Sephora" onClick={handleFilterClick} isActive={activeFilter === 'Sephora'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Nordstrom" onClick={handleFilterClick} isActive={activeFilter === 'Nordstrom'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Xbox" onClick={handleFilterClick} isActive={activeFilter === 'Xbox'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="eBay" onClick={handleFilterClick} isActive={activeFilter === 'eBay'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Macy" onClick={handleFilterClick} isActive={activeFilter === 'Macy'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Google Play" onClick={handleFilterClick} isActive={activeFilter === 'Google Play'} />
+                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Vanilla" onClick={handleFilterClick} isActive={activeFilter === 'Vanilla'} />
             </div>
 
             <div className="bg-white rounded-lg overflow-x-auto">
@@ -157,31 +97,6 @@ const TradeGiftCard = () => {
                         </tbody>
                     </table>
                 )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
     );
