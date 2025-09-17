@@ -12,7 +12,7 @@ function App() {
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
     </Routes>
-    <Route path="/edit-000" element={<EditGiftCardRates />} />
+    <Route path="/edit" element={<EditGiftCardRates />} />
     </Routes>
   );
 }
