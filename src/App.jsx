@@ -11,7 +11,6 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/signup" element={<SignUpPage />} />
-    </Routes>
     <Route path="/edit" element={<EditGiftCardRates />} />
     </Routes>
   );
