@@ -67,8 +67,8 @@ const EditGiftCardRates = () => {
 
                 <div className="mb-8 p-6 bg-white border rounded-lg shadow-sm">
                     <h3 className="text-xl font-semibold mb-4 text-gray-700">Add New Gift Card Type</h3>
-                    <form onSubmit={handleAddType} className="flex items-center gap-4">
-                        <input name="newType" type="text" placeholder="e.g., Amazon" required className="p-3 border rounded-md focus:ring-2 focus:ring-blue-500 flex-grow" />
+                    <form onSubmit={handleAddType} className="w-full flex items-center gap-4">
+                        <input name="newType" type="text" placeholder="e.g., Amazon" required className="w-2/3 p-3 border rounded-md focus:ring-2 focus:ring-blue-500 flex-grow" />
                         <button type="submit" className="bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Add Type</button>
                     </form>
                 </div>
@@ -110,7 +110,7 @@ const RateEditor = ({ rateData, onDelete, onUpdate }) => {
     return (
         <div className="bg-white p-6 rounded-lg shadow-sm border">
             <div className="flex justify-between items-center mb-4">
-                <input className="text-2xl font-bold text-gray-800 p-2 border rounded-md" value={typeName} onChange={(e) => setTypeName(e.target.value)} />
+                <input className="text-2xl font-bold text-gray-800 w-fit p-2 border rounded-md" value={typeName} onChange={(e) => setTypeName(e.target.value)} />
                 <button onClick={() => onDelete(rateData.id)} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete Type</button>
             </div>
             
@@ -128,7 +128,7 @@ const RateEditor = ({ rateData, onDelete, onUpdate }) => {
                 ))}
             </div>
 
-            <div className="mt-4 flex justify-between">
+            <div className="mt-4 flex gap-4 justify-between">
                 <button onClick={addRateField} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Rate Entry</button>
                 <button onClick={handleSave} className="bg-green-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-green-600">Save Changes</button>
             </div>
