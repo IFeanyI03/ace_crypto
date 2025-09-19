@@ -23,12 +23,12 @@ const Services = () => {
     {
       icon: Globe,
       title: 'IT consultancy',
-      description: 'AceTech delivers best-in-class web solutions for your business and retain the attention of the target.'
+      description: 'Ace digital world offers Strategic IT consulting that empowers businesses to innovate, adapt, and stay ahead in a digital world'
     },
     {
       icon: Mobile,
       title: 'Mobile App Development',
-      description: 'We build user-friendly, high-performance mobile apps that help your business grow in today’s digital world.'
+      description: 'Professional web application development services tailored to help your business reach and engage its ideal audience.'
     }
   ];
 
@@ -36,7 +36,7 @@ const Services = () => {
     <section className="relative h-fit pb-10 md:pb-20 px-4 sm:px-8 md:px-[121px]">
       <div className="flex flex-col gap-4 text-center">
         <h2 className="text-2xl sm:text-3xl md:text-[32px] font-bold">Web Development</h2>
-        <p className="font-medium">Bringing IT solutions for your Business</p>
+        <p className="font-medium">Ace digital world offers IT solutions for your large and small scale businesses</p>
         <div className="flex flex-col md:flex-row justify-between gap-8 mt-8">
           {services.map(service => (
             <ServiceCard key={service.title} title={service.title} description={service.description} icon={service.icon} />

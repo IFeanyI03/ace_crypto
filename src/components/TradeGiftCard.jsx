@@ -1,43 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-// import ItunesIcon from '../assets/itunes.png';
-// import RazerIcon from '../assets/razer.png';
-// import SteamIcon from '../assets/steam.png';
-// import {
-//     SiItunes,
-//     SiRazer,
-//     SiSteam,
-//     // SiSephora,
-//     // SiNordstrom,
-//     SiXbox,
-//     SiEbay,
-//     SiMacys,
-//     SiGoogleplay,
-//     SiVisa
-// } from 'react-icons/si';
 
-// Create a mapping from the card type string to the imported icon component
-// const iconMap = {
-//     'iTunes': <SiItunes size={24} />,
-//     'Razer Gold': <SiRazer size={24} />,
-//     'Steam': <SiSteam size={24} />,
-//     'Sephora': <SiVisa size={24} />,
-//     'Nordstrom': <SiVisa size={24} />,
-//     'Xbox': <SiXbox size={24} />,
-//     'eBay': <SiEbay size={24} />,
-//     'Macy': <SiMacys size={24} />, // Note: The brand name is Macy's
-//     'Google Play': <SiGoogleplay size={24} />,
-//     'Vanilla': <SiVisa size={24} />, // Using SiVisa as a stand-in for Vanilla
-// };
-
-const FilterButton = ({ icon, label, onClick, isActive }) => (
+const FilterButton = ({ label, onClick, isActive }) => (
     <button onClick={() => onClick(label)} className={`flex items-center gap-2 px-3 py-1.5 border rounded-lg text-sm font-medium hover:text-white hover:bg-[#000B9F] ${isActive ? 'bg-[#000B9F] text-white' : 'border-gray-300 text-gray-700'}`}>
-        {/* <img className='w-6 h-6 object-contain' src={icon} alt={`${label} icon`} /> */}
         <span>{label}</span>
     </button>
 );
 
-const LoadingSpinner = () => (
+export const LoadingSpinner = () => (
     <div className="flex justify-center items-center p-8">
         <svg className="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -47,68 +17,47 @@ const LoadingSpinner = () => (
 );
 
 const TradeGiftCard = () => {
-    const [activeFilter, setActiveFilter] = useState('');
-    const [giftCardData, setGiftCardData] = useState({});
-    // const [giftCardTypes, setGiftCardTypes] = useState([]);
+    const [activeFilter, setActiveFilter] = useState('All');
+    const [giftCardData, setGiftCardData] = useState([]);
+    const [allGiftCards, setAllGiftCards] = useState([]);
+    const [giftCardTypes, setGiftCardTypes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
         const fetchRates = async () => {
-
             setLoading(true);
-
             let { data: rates, error } = await supabase
-
-
-
                 .from('rates')
-
                 .select('*');
 
             if (error) {
-
                 console.error('Error fetching rates:', error);
-
             } else {
+                const flattenedData = rates.flatMap(rate =>
+                    rate.rate.map(r => ({ ...r, type: rate.type }))
+                );
 
-                const formattedData = rates.reduce((acc, rate) => {
+                setAllGiftCards(flattenedData);
+                setGiftCardData(flattenedData);
 
-                    acc[rate.type] = rate.rate;
-
-                    return acc;
-
-                }, {});
-
-                setGiftCardData(formattedData);
-
+                const types = ['All', ...new Set(rates.map(rate => rate.type))];
+                setGiftCardTypes(types);
             }
-
             setLoading(false);
-
         };
 
-
-
         fetchRates();
-
-
-
     }, []);
 
-
-
     const handleFilterClick = (filter) => {
-
         setActiveFilter(filter);
-
+        if (filter === 'All') {
+            setGiftCardData(allGiftCards);
+        } else {
+            const filteredData = allGiftCards.filter(card => card.type === filter);
+            setGiftCardData(filteredData);
+        }
     };
-
-
-
-    const giftCardTypes = Object.keys(giftCardData);
-
-    const activeData = giftCardData[activeFilter] || [];
 
     return (
         <div>
@@ -116,7 +65,6 @@ const TradeGiftCard = () => {
                 {giftCardTypes.map((type, index) => (
                     <FilterButton
                         key={index}
-                        // icon={iconMap[type] || <SiVisa size={24} />} // Use a default icon if not found
                         label={type}
                         onClick={handleFilterClick}
                         isActive={activeFilter === type}
@@ -129,6 +77,7 @@ const TradeGiftCard = () => {
                     <table className="w-full min-w-max text-left">
                         <thead>
                             <tr className="border-b bg-gray-50">
+                                <th className="p-4 font-semibold text-gray-600">Type</th>
                                 <th className="p-4 font-semibold text-gray-600">Country</th>
                                 <th className="p-4 font-semibold text-gray-600">Rate (per $)</th>
                                 <th className="p-4 font-semibold text-gray-600">Min Value</th>
@@ -136,8 +85,9 @@ const TradeGiftCard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {activeData.map((card, index) => (
+                            {giftCardData.map((card, index) => (
                                 <tr key={index} className="border-b">
+                                    <td className="p-4">{card.type}</td>
                                     <td className="p-4">{card.country}</td>
                                     <td className="p-4">{card.rate}</td>
                                     <td className="p-4">{card.min}</td>

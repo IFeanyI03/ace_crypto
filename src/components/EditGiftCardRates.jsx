@@ -1,6 +1,7 @@
 // src/components/EditGiftCardRates.jsx
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
+import { LoadingSpinner } from './TradeGiftCard';
 
 const EditGiftCardRates = () => {
     const [ratesData, setRatesData] = useState([]);
@@ -21,7 +22,7 @@ const EditGiftCardRates = () => {
     useEffect(() => {
         fetchRates();
     }, []);
-    
+
     // Generic update function
     const updateRate = async (id, type, rate) => {
         const { error } = await supabase
@@ -58,27 +59,31 @@ const EditGiftCardRates = () => {
         }
     };
 
-    if (loading) return <p>Loading editor...</p>;
+
 
     return (
         <div className="p-4 sm:p-8 bg-gray-50 min-h-screen">
-            <div className="max-w-7xl mx-auto">
-                <h2 className="text-3xl font-bold mb-6 text-gray-800">Edit Gift Card Rates</h2>
+            {loading ? <LoadingSpinner /> :
+                <div className="max-w-7xl mx-auto">
 
-                <div className="mb-8 p-6 bg-white border rounded-lg shadow-sm">
-                    <h3 className="text-xl font-semibold mb-4 text-gray-700">Add New Gift Card Type</h3>
-                    <form onSubmit={handleAddType} className="w-full flex items-center gap-4">
-                        <input name="newType" type="text" placeholder="e.g., Amazon" required className="w-2/3 p-3 border rounded-md focus:ring-2 focus:ring-blue-500 flex-grow" />
-                        <button type="submit" className="bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Add Rate</button>
-                    </form>
+                    <h2 className="text-3xl font-bold mb-6 text-gray-800">Edit Gift Card Rates</h2>
+
+                    <div className="mb-8 p-6 bg-white border rounded-lg shadow-sm">
+                        <h3 className="text-xl font-semibold mb-4 text-gray-700">Add New Gift Card Type</h3>
+                        <form onSubmit={handleAddType} className="w-full flex items-center gap-4">
+                            <input name="newType" type="text" placeholder="e.g., Amazon" required className="w-2/3 p-3 border rounded-md focus:ring-2 focus:ring-blue-500 flex-grow" />
+                            <button type="submit" className="bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Add Rate</button>
+                        </form>
+                    </div>
+
+                    <div className="space-y-6">
+                        {ratesData.map(rate => (
+                            <RateEditor key={rate.id} rateData={rate} onDelete={handleDeleteType} onUpdate={updateRate} />
+                        ))}
+                    </div>
+
                 </div>
-                
-                <div className="space-y-6">
-                    {ratesData.map(rate => (
-                        <RateEditor key={rate.id} rateData={rate} onDelete={handleDeleteType} onUpdate={updateRate} />
-                    ))}
-                </div>
-            </div>
+            }
         </div>
     );
 };
@@ -97,12 +102,12 @@ const RateEditor = ({ rateData, onDelete, onUpdate }) => {
     const addRateField = () => {
         setLocalRates([...localRates, { country: 'USA', rate: 0, min: 0, max: 0, variant: 'Physical', naira: 0 }]);
     };
-    
+
     const removeRateField = (index) => {
         const updatedRates = localRates.filter((_, i) => i !== index);
         setLocalRates(updatedRates);
     };
-    
+
     const handleSave = () => {
         onUpdate(rateData.id, typeName, localRates);
     };
@@ -113,7 +118,7 @@ const RateEditor = ({ rateData, onDelete, onUpdate }) => {
                 <input className="text-2xl font-bold text-gray-800 p-2 border rounded-md w-2/3" value={typeName} onChange={(e) => setTypeName(e.target.value)} />
                 <button onClick={() => onDelete(rateData.id)} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Delete</button>
             </div>
-            
+
             <div className="space-y-4">
                 {localRates.map((rate, index) => (
                     <div key={index} className="grid grid-cols-2 md:grid-cols-7 gap-3 p-3 border rounded-md bg-gray-50">
