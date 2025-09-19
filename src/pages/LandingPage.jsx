@@ -24,8 +24,8 @@ const LandingPage = () => {
         return <HomePage />;
       case 'buy-crypto':
         return <BuyCryptoHero />;
-      case 'contact':
-        return <ContactUs />;
+      // case 'contact':
+      //   return <ContactUs />;
       case 'about':
         return <AboutUs />;
       case 'trade':

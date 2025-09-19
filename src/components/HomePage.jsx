@@ -15,10 +15,10 @@ const HomePage = () => {
                             Ace digital is the easiest place to buy and sell
                             cryptocurrency. Sign up and get started today.
                         </p>
-                        <div className='h-auto flex flex-col sm:flex-row gap-4 md:gap-[17px] md:h-[95px]'>
+                        {/* <div className='h-auto flex flex-col sm:flex-row gap-4 md:gap-[17px] md:h-[95px]'>
                             <input className='h-full w-full sm:w-[355px] border-[#00000029] p-2.5 border-[1px] rounded-[8px]' placeholder='Email/phone number' type="text" />
                             <button className='h-full w-full sm:w-[192px] bg-[#000B9F] p-2.5 rounded-[8px] text-white'>Get Started</button>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="md:w-1/2 w-full flex items-center px-4 justify-center md:justify-end mt-8 md:mt-0">
                         <CryptoList/>

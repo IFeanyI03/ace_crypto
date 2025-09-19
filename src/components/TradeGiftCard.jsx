@@ -1,14 +1,38 @@
-// src/components/TradeGiftCard.jsx
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-import { ItunesIcon, GoldRazerIcon, SteamIcon } from '../assets/TradeIcons';
-import itunes from '../assets/itunes.png';
-import razer from '../assets/razer.png';
-import steam from '../assets/steam.png';
+// import ItunesIcon from '../assets/itunes.png';
+// import RazerIcon from '../assets/razer.png';
+// import SteamIcon from '../assets/steam.png';
+// import {
+//     SiItunes,
+//     SiRazer,
+//     SiSteam,
+//     // SiSephora,
+//     // SiNordstrom,
+//     SiXbox,
+//     SiEbay,
+//     SiMacys,
+//     SiGoogleplay,
+//     SiVisa
+// } from 'react-icons/si';
+
+// Create a mapping from the card type string to the imported icon component
+// const iconMap = {
+//     'iTunes': <SiItunes size={24} />,
+//     'Razer Gold': <SiRazer size={24} />,
+//     'Steam': <SiSteam size={24} />,
+//     'Sephora': <SiVisa size={24} />,
+//     'Nordstrom': <SiVisa size={24} />,
+//     'Xbox': <SiXbox size={24} />,
+//     'eBay': <SiEbay size={24} />,
+//     'Macy': <SiMacys size={24} />, // Note: The brand name is Macy's
+//     'Google Play': <SiGoogleplay size={24} />,
+//     'Vanilla': <SiVisa size={24} />, // Using SiVisa as a stand-in for Vanilla
+// };
 
 const FilterButton = ({ icon, label, onClick, isActive }) => (
     <button onClick={() => onClick(label)} className={`flex items-center gap-2 px-3 py-1.5 border rounded-lg text-sm font-medium hover:text-white hover:bg-[#000B9F] ${isActive ? 'bg-[#000B9F] text-white' : 'border-gray-300 text-gray-700'}`}>
-        {icon}
+        {/* <img className='w-6 h-6 object-contain' src={icon} alt={`${label} icon`} /> */}
         <span>{label}</span>
     </button>
 );
@@ -23,51 +47,81 @@ const LoadingSpinner = () => (
 );
 
 const TradeGiftCard = () => {
-    const [activeFilter, setActiveFilter] = useState('iTunes');
+    const [activeFilter, setActiveFilter] = useState('');
     const [giftCardData, setGiftCardData] = useState({});
+    // const [giftCardTypes, setGiftCardTypes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+
         const fetchRates = async () => {
+
             setLoading(true);
+
             let { data: rates, error } = await supabase
 
+
+
                 .from('rates')
+
                 .select('*');
+
             if (error) {
+
                 console.error('Error fetching rates:', error);
+
             } else {
+
                 const formattedData = rates.reduce((acc, rate) => {
+
                     acc[rate.type] = rate.rate;
+
                     return acc;
+
                 }, {});
+
                 setGiftCardData(formattedData);
+
             }
+
             setLoading(false);
+
         };
 
+
+
         fetchRates();
+
+
+
     }, []);
 
+
+
     const handleFilterClick = (filter) => {
+
         setActiveFilter(filter);
+
     };
+
+
+
+    const giftCardTypes = Object.keys(giftCardData);
 
     const activeData = giftCardData[activeFilter] || [];
 
     return (
         <div>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="iTunes" onClick={handleFilterClick} isActive={activeFilter === 'iTunes'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={razer} />} label="Razer Gold" onClick={handleFilterClick} isActive={activeFilter === 'Razer Gold'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={steam} />} label="Steam" onClick={handleFilterClick} isActive={activeFilter === 'Steam'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Sephora" onClick={handleFilterClick} isActive={activeFilter === 'Sephora'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Nordstrom" onClick={handleFilterClick} isActive={activeFilter === 'Nordstrom'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Xbox" onClick={handleFilterClick} isActive={activeFilter === 'Xbox'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="eBay" onClick={handleFilterClick} isActive={activeFilter === 'eBay'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Macy" onClick={handleFilterClick} isActive={activeFilter === 'Macy'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Google Play" onClick={handleFilterClick} isActive={activeFilter === 'Google Play'} />
-                <FilterButton icon={<img className='w-6 h-6 object-contain' src={itunes} />} label="Vanilla" onClick={handleFilterClick} isActive={activeFilter === 'Vanilla'} />
+                {giftCardTypes.map((type, index) => (
+                    <FilterButton
+                        key={index}
+                        // icon={iconMap[type] || <SiVisa size={24} />} // Use a default icon if not found
+                        label={type}
+                        onClick={handleFilterClick}
+                        isActive={activeFilter === type}
+                    />
+                ))}
             </div>
 
             <div className="bg-white rounded-lg overflow-x-auto">
@@ -78,8 +132,6 @@ const TradeGiftCard = () => {
                                 <th className="p-4 font-semibold text-gray-600">Country</th>
                                 <th className="p-4 font-semibold text-gray-600">Rate (per $)</th>
                                 <th className="p-4 font-semibold text-gray-600">Min Value</th>
-                                <th className="p-4 font-semibold text-gray-600">Max Value</th>
-                                <th className="p-4 font-semibold text-gray-600">Naira Value</th>
                                 <th className="p-4 font-semibold text-gray-600">Variant</th>
                             </tr>
                         </thead>
@@ -89,8 +141,6 @@ const TradeGiftCard = () => {
                                     <td className="p-4">{card.country}</td>
                                     <td className="p-4">{card.rate}</td>
                                     <td className="p-4">{card.min}</td>
-                                    <td className="p-4">{card.max}</td>
-                                    <td className="p-4">{card.naira.toLocaleString()}</td>
                                     <td className="p-4">{card.variant}</td>
                                 </tr>
                             ))}

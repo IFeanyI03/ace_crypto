@@ -5,22 +5,24 @@ import CryptoForm from './CryptoForm';
 const BuyCryptoHero = () => {
     return (
         <div className='relative pt-4 flex flex-col gap-8 md:gap-[66px] px-4 sm:px-8 md:px-[121px]'>
-            
+
             <section className="">
-                <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div className="flex flex-col md:flex-row  justify-center items-center gap-8 md:gap-12">
+                    <a href="https://wa.me/+2348120694955" className="h-fit w-fit p-6 bg-[#000B9F] text-white rounded-md font-semibold hover:bg-blue-700">Continue on whatsapp</a>
+
                     {/* Left Side Content */}
-                    <div className="md:w-1/2 flex flex-col gap-4 text-center md:text-left">
+                    {/* <div className="md:w-1/2 flex flex-col gap-4 text-center md:text-left">
                         <h1 className="text-3xl md:text-[48px] w-full md:w-[419px] font-bold">
                             Buy Crypto In A Few Easy Steps
                         </h1>
                         <p className="text-gray-600 text-lg">
                             With Various Payment Methods Available, You're Sure To Find One That Works For You.
                         </p>
-                    </div>
+                    </div> */}
                     {/* Right Side Form */}
-                    <div className="w-full md:w-1/2">
+                    {/* <div className="w-full md:w-1/2">
                         <CryptoForm />
-                    </div>
+                    </div> */}
                 </div>
             </section>
 
